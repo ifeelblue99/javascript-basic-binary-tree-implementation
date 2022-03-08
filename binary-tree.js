@@ -21,7 +21,7 @@ BTree.prototype.addNode = function(val){
         this.root.leftChild = node
       }
       else{
-        addNode(val)
+        this.addNode(val)
       }
     }
     // if val > root.value
@@ -30,7 +30,7 @@ BTree.prototype.addNode = function(val){
         this.root.rightChild = node
       }
       else{
-        addNode(val)
+        this.addNode(val)
       }
     }
   }
@@ -45,10 +45,14 @@ function Node(value){
 
 // tree set up
 const binaryTree = new BTree()
+// generate rand array
+const randDataArray = []
+for (let i=1; i<8 ; i++) {
+  randDataArray.push((Math.random()*(10+i)).toFixed(1))
+}
 
-binaryTree.addNode(6)
-binaryTree.addNode(3)
-binaryTree.addNode(10)
+// construct the tree
+randDataArray.forEach(el => binaryTree.addNode(el))
 
 // driver code
 console.log(binaryTree);
