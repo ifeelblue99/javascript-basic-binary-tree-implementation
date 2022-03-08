@@ -1,58 +1,61 @@
-/*
-binary tree implementation 
+/* 
+Binary tree implementation 
 */
 
-// tree
-function BTree(){
-  this.root = null
+// node
+function Node(dt) {
+    this.data = dt;
+    this.left = null;
+    this.right = null;
 }
 
-// tree prototype
-BTree.prototype.addNode = function(val){
-  const node = new Node(val)
+// binary tree
+function BinaryTree(){
+
+  this.root = null;
   
-  if (this.root == null) {
-    this.root = node
-  } 
-  else{
-    // if val < root.value
-    if (val<this.root.value) {
-      if(this.root.leftChild == null){
-        this.root.leftChild = node
-      }
-      else{
-        this.addNode(val)
-      }
-    }
-    // if val > root.value
-    else{
-      if(this.root.rightChild == null){
-        this.root.rightChild = node
-      }
-      else{
-        this.addNode(val)
-      }
+  this.add = function(data) {
+    const node = this.root;
+    if (node === null) {
+      this.root = new Node(data);
+      return;
+    } else {
+      const searchTree = function(node) {
+        if (data < node.data) {
+          if (node.left === null) {
+            node.left = new Node(data);
+            return;
+          } else if (node.left !== null) {
+            return searchTree(node.left);
+          }
+        } else if (data > node.data) {
+          if (node.right === null) {
+            node.right = new Node(data);
+            return;
+          } else if (node.right !== null) {
+            return searchTree(node.right);
+          }
+        } else {
+          return null;
+        }
+      };
+      return searchTree(node);
     }
   }
 }
 
-// nonde object
-function Node(value){
-  this.value = value
-  this.leftChild = null
-  this.rightChild = null
-}
+
 
 // tree set up
-const binaryTree = new BTree()
-// generate rand array
-const randDataArray = []
-for (let i=1; i<8 ; i++) {
-  randDataArray.push((Math.random()*(10+i)).toFixed(1))
-}
+const binaryTree = new BinaryTree();
 
-// construct the tree
-randDataArray.forEach(el => binaryTree.addNode(el))
+binaryTree.add(9);
+binaryTree.add(4);
+binaryTree.add(17);
+binaryTree.add(12);
+binaryTree.add(20);
 
 // driver code
-console.log(binaryTree);
+console.log(binaryTree)
+
+
